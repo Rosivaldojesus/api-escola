@@ -1,4 +1,3 @@
-from email import header
 import requests
 
 # GET Avaliações
@@ -43,7 +42,6 @@ import requests
 # GET cursos utilizando o Token
 
 headers = {'Authorization': 'Token ba987131bf42c8df4447c789453ecd65b26ab1b0'}
-
 cursos = requests.get(url='http://127.0.0.1:8000/api/v2/cursos/', headers=headers)
 print(cursos.json())
 
