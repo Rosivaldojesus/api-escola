@@ -6,6 +6,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import mixins
 
+from rest_framework import permissions, authentication
+
 from .models import Curso, Avaliacao
 from .serializers import CursoSerializer, AvaliacaoSerializer
 
@@ -18,6 +20,8 @@ API V1
 class CursosAPIView(generics.ListCreateAPIView):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 
 
 class CursoAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -26,6 +30,8 @@ class CursoAPIView(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
+
+    
 
 
 class AvaliacoesAPIView(generics.ListCreateAPIView):
@@ -57,6 +63,10 @@ API V2
 class CursoViewSet(viewsets.ModelViewSet):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
+
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+
 
     @action(detail=True, methods=['GET'])
     def avaliacoes(self, request, pk=None):
